@@ -1,6 +1,6 @@
 # Configurando ingress controller com metalLB
 
-## INstall 
+## Install 
 
   oc get clusterserviceversion -n metallb-system -o custom-columns=Name:.metadata.name,Phase:.status.phase
 
