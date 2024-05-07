@@ -1,0 +1,29 @@
+apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  name: apps-ocp-virtua
+  namespace: openshift-ingress-operator
+spec:
+  domain: apps.ocp.virtua.com.br
+  endpointPublishingStrategy:
+    loadBalancer:
+      dnsManagementPolicy: Managed
+      providerParameters:
+        type: BareMetal
+      scope: External
+    type: LoadBalancerService
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: In
+      values:
+      - eng-residencial-dev         
+      - eng-residencial-preprod     
+      - eng-residencial-prod        
+      - claro-3scale
+      - claro-sso-prod
+  nodePlacement:
+    nodeSelector:
+      matchLabels:
+        node-role.kubernetes.io/infra: ""
+  replicas: 3
